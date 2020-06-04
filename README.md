@@ -18,8 +18,72 @@ Vagrant.configure(2) do |config|
           config.vm.box = "ubuntu/xenial64"
 ```
 
-Mit dem `config.vm.box`    
+* Mit dem `config.vm.box` wird aus der Vagrant Cloud eine bestimmte Box heruntergeladen
 
+```
+config.vm.network "forwarded_port", guest:80, host:8080, auto_correct: true
+```
+* Mit `config.vm.network` werden die Netzwerk Einstellungen der VM gemacht. In diesem beispiel wird der Port 80 auf den port 8080 weitergeleitet 
 
+```
+config.vm.synced_folder ".", "/var/www/html"
+```
+
+* Der Ordner `/var/www/html` wird mit dem vagrant-VM Verzeichnis synchronisiert und es können änderungenam HTML File vorgenommen werden. 
+
+```
+config.vm.provider "virtualbox" do |vb|
+          vb.memory = "256"  
+```
+
+* Hier wird angegeben wie viel RAM die einzelne VM erhält
+
+```
+config.vm.provision "shell", inline: <<-SHELL 
+          sudo apt-get update
+          sudo apt-get -y install apache2
+          sudo apt-get -y install ufw
+          sudo ufw enable
+          sudo ufw allow 80/tcp
+        SHELL
+        end
+```
+
+* In diesem Abschnitt wird in der Shell des Betriebsystems Befehle abgesetzt. So können Pakete installiert und Konfiguarionen vorgenommen werden.
+  
+  Hier wird `apache` & `ufw Firewall` installiert
+  Die `ufw Firewall ` wird aktiviert und der Port 80 wird geöffnet.
+
+```
+# index.html 
+    cat <<%EOF% >index.html
+    <html>
+        <body>
+            <h1>LB2 von Robin Bobst für ${vm}</h1>
+        </body>
+    <html>
+```
+
+* In diesem Abschnitt wird das index.html angepasst und erstellt. Dieses index.html kann beliebig ausgeschmückt werden.
+
+```
+vagrant up
+    cd ..
+```
+
+* Die VM wir mit `vagrant up` gestartet und das Verzeichnis wird nach dem start verlassen
+
+```
+config.vm.provision "shell", inline: <<-SHELL 
+          sudo apt-get update
+          sudo apt-get -y install mysql-server
+          sudo useradd -m mysql
+          sudo apt-get -y install ufw
+          sudo ufw enable
+          sudo ufw allow from 0.0.0.0/0 to any port 3306
+        SHELL
+        end
+```
+* Hier wird für die Datenbank-VM`s 
 
 von Robin Bobst
