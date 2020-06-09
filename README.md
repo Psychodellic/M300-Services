@@ -84,6 +84,50 @@ config.vm.provision "shell", inline: <<-SHELL
         SHELL
         end
 ```
-* Hier wird für die Datenbank-VM`s 
+* Hier wird für die Datenbank-VM's die Datenbank (`mysql-server`) installiert und ein User mit dem Namen `mysql` erstellt.
+  Ebenfalls wird die `ufw Firewall` installiert und der Port `3306` wird für alle Netzwerke geöffent, dass jedes Netzwerk auf die Datenbank zugreifen und verwalten kann. 
+  Die kann bei Sycherheitsrelevanten Datenbanken eingegrenzt werden.
+
+```
+vagrant up
+    cd ..   
+```
+* die VM's werden gestartet und das Verzeichnis wird verlassen um die nächte VM aufzubauen. 
+
+
+---
+
+## Shell Script starten
+
+* Das Script sollte im Verzeichnis sich befinden und gestartet werden in der man auch die VM möchte, da das Script die VM einfach in dem sich befindende Verzeichnis erstellt und startet.
+
+* Das Shell-Script kann mit 3 Arten gestarte werden:
+  
+  * Im Verzeichnis in dem sich das Script befindet.
+     ```
+     ./mm.sh
+     ```
+  * Absolute Pfad
+    ```
+    /e/M300/vagrant/mm.sh
+    ```  
+
+  * Pfadvariable
+    
+    Das Script befindet sich in einem Verzeichnis das in der Pfadvariabel angegeben ist
+    ```
+    echo $PATH
+    ```
+    * Pfadvariable anzeigen
+
+---
+
+## Shell Script anpassen
+
+* Das Script kann für weitere Zwecke angepasst werden. 
+
+* Die Parameter können verändert und auch ergänzt werden. 
+
+---
 
 von Robin Bobst
