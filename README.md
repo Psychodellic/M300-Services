@@ -3,6 +3,8 @@
 * Erklärung vom Code
 * Shell Script starten
 * Shell Script anpassen
+* Sicherheit
+* Fazit
 
 ---
 
@@ -12,6 +14,11 @@ Das Script erstellen automatisiert 2x WebVM's mit apache Webserver und 2x DBVM's
 
 Das Shell-Script wird mit zwei for Schleifen gelöst welche die VM's erstellt. 
 
+```
+#!/bin/bash
+```
+
+* Mit dem Befehl `#!/bin/bash` wird dem System gesagt das die Umgebung mit der Bash aufegbaut werden soll. Das System weiss das es für dieses Shellscript die Bash verwenden muss.  
 
 ```
 Vagrant.configure(2) do |config|
@@ -129,5 +136,25 @@ vagrant up
 * Die Parameter können verändert und auch ergänzt werden. 
 
 ---
+
+## Sicherheit
+
+[1]: https://de.wikipedia.org/wiki/H%C3%A4rten_(Computer) "härten"
+
+* Systeme und VM's die im Internet (DMZ) stehe sollten imer [gehärtet][1] sein.
+
+* Der Zugriff auf Datenbanken sollte auf die nötigsten Netze beschränkt werden und die Administration nur von einem Bestimmten Netz erlaubt werden.
+
+* Dateinübertragungen sollten immer über eine Verschlüsselte Verbindung gemacht werden. 
+
+* Die Sicherheit kann im Script ausgebaut werden damit es den eigenen Standards entspricht. 
+
+---
+
+## Fazit
+
+* Mit einem Shellscript können sehr schnell und einfach mehrere VM's erstellt werden. 
+
+* Es ist ganz leicht das Script für weitere Zwecke auszuabuen und zu erweitern. 
 
 von Robin Bobst
