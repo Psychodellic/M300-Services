@@ -157,4 +157,5 @@ vagrant up
 
 * Es ist ganz leicht das Script für weitere Zwecke auszubauen und zu erweitern. 
 
+---
 von Robin Bobst
