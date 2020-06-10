@@ -121,7 +121,7 @@ vagrant up
 
   * Pfadvariable
     
-    Das Script befindet sich in einem Verzeichnis das in der Pfadvariabel angegeben ist
+    Das Script befindet sich in einem Verzeichnis das in der Pfadvariabel angegeben ist.
     ```
     echo $PATH
     ```
@@ -155,6 +155,6 @@ vagrant up
 
 * Mit einem Shellscript können sehr schnell und einfach mehrere VM's erstellt werden. 
 
-* Es ist ganz leicht das Script für weitere Zwecke auszuabuen und zu erweitern. 
+* Es ist ganz leicht das Script für weitere Zwecke auszubauen und zu erweitern. 
 
 von Robin Bobst
