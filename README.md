@@ -170,15 +170,20 @@ vagrant up
 * Im Verzeichnis in dem das Shellscript gestartet wurde sollte nach erfolgreichen durchlaufen des Scripts vier Ordner mit den Namen `web01`, `web02`, `db01` & `db02` erstellt worden sein.
   
 ![Ordner](ordner.png)
+
+https://ibb.co/dkSSpbH
   
 * Die vier VM's laufen und die Dienste sind installiert.
 
-![Container](https://ibb.co/tKnXF0w)
+![Container](Container.png)
 
+https://ibb.co/tKnXF0w
 
 * Die index.hmtl Seite die erzeugt wurde ist aufrufbar. 
 
 ![index.html](index.png)
+
+https://ibb.co/fNV6xdf
 
 ---
 
