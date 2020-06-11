@@ -4,6 +4,9 @@
 * Shell Script starten
 * Shell Script anpassen
 * Sicherheit
+* Testing
+  * Testfälle
+  * Testergebnisse 
 * Fazit
 
 ---
@@ -148,6 +151,33 @@ vagrant up
 * Dateinübertragungen sollten immer über eine Verschlüsselte Verbindung gemacht werden. 
 
 * Die Sicherheit kann im Script ausgebaut werden damit es den eigenen Standards entspricht. 
+
+---
+
+## Testing
+
+### Testfälle
+
+* Die Ordner der Container wurden erzeugt mit den richtigen Namen?
+
+* Die VM's wurden gestartet und die Dienste laufen?
+
+* Wurde die index.html Seite erzeugt und ist dieses Aufrufbar? 
+
+### Testergebnisse
+
+
+* Im Verzeichnis in dem das Shellscript gestartet wurde sollte nach erfolgreichen durchlaufen des Scripts vier Ordner mit den Namen `web01`, `web02`, `db01` & `db02` erstellt worden sein.
+  
+![Ordner](ordner.png)
+  
+* Die vier VM's laufen und die Dienste sind installiert.
+
+![Container](Container.png)
+
+* Die index.hmtl Seite die erzeugt wurde ist aufrufbar. 
+
+![index.html](index.png)
 
 ---
 
