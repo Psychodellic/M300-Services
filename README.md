@@ -8,7 +8,8 @@
   * Testfälle
   * Testergebnisse 
 * Fazit
-
+* Reflexion
+* Wissensgewinn
 ---
 
 ## Erklärung vom Code
@@ -142,15 +143,31 @@ vagrant up
 
 ## Sicherheit
 
+* Die Firewall hat die Ports 80 und 3306 geöffnet.
+	
+  * Port 80:
+	
+    * Wird für die Webserver benötigt.
+	
+
+  * Port 3306:
+	
+      * Wird für die DB-Server benötigt, und ist offen für alle.
+		Eigentlich ist das überhaupt nicht gut, dass es offen für alle ist, aber da unsere VMs die IP vom DHCP beziehen, ist uns unklar welches Netz wir freigeben müssen.
+
+
 [1]: https://de.wikipedia.org/wiki/H%C3%A4rten_(Computer) "härten"
 
-* Systeme und VM's die im Internet (DMZ) stehe sollten imer [gehärtet][1] sein.
+* Systeme und VM's die im Internet (DMZ) stehe sollten immer [gehärtet][1] sein.
 
 * Der Zugriff auf Datenbanken sollte auf die nötigsten Netze beschränkt werden und die Administration nur von einem Bestimmten Netz erlaubt werden.
 
 * Dateinübertragungen sollten immer über eine Verschlüsselte Verbindung gemacht werden. 
 
-* Die Sicherheit kann im Script ausgebaut werden damit es den eigenen Standards entspricht. 
+* Die Sicherheit kann im Script ausgebaut werden damit es den eigenen Standards entspricht.
+
+* Mit SSH (Secure Shell) wird eine Verschlüsselte Verbindung zu einem entferneten Rechner oder System aufgebaut. Mit dieser verschlüsselten Verbindung kann auf die Commandline zugegriffen werden und Sicher auf anderen Systemen gearbeiet werden. 
+
 
 ---
 
@@ -198,4 +215,15 @@ https://ibb.co/fNV6xdf
 * Für grössere Projekte sollten noch Fehlerbehandlung eingebaut werden und Logs um eine Übersicht zu haben welche VM's wann erstellt wurden und ob Probleme aufgetreten sind. 
 
 ---
+
+## Relflexion
+
+Ich habe viel über Git gelernt und mich mit dem Thema ausanander gesetzt. Mit Visual Studio Code habe ich das ganze Prozedere schon ziemlich gut im Griff um Sachen zu pushen und stagen. Ich finde Git macht in vielen Anwendungsbereichen viel sinn und werde versuchen dies in Zukunft mehr zu gebrauchen und es auch im Geschäft zu Pushen. Das Projekt mit der Vagrantbox hat mir auch viel gelernt. Nicht alles hat auf anhieb geklappt. Bei Rückfragen des OS hat sich das Script aufgehangen und konnte nicht ausgeführt werden. 
+
+---
+
+## Wissensgewinn
+
+Ich habe am Anfang nicht verstanden wie man mit Vagrant einen automatisierten Webserver ausetzt, doch mit dem Projekt habe ich dies Verstanden. Auch habe ich gelernt wie man mit Git umgeht und wie man dies am besten einsetzten kann. 
+
 von Robin Bobst
