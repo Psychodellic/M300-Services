@@ -191,7 +191,11 @@ https://ibb.co/fNV6xdf
 
 * Mit einem Shellscript können sehr schnell und einfach mehrere VM's erstellt werden. 
 
-* Es ist ganz leicht das Script für weitere Zwecke auszubauen und zu erweitern. 
+* Es ist ganz leicht das Script für weitere Zwecke auszubauen und zu erweitern.
+
+* Bei installationen bei dem Abfragen an den User gestellt werden kann es zu Problemen und Schwierigkeiten kommen.
+
+* Für grössere Projekte sollten noch Fehlerbehandlung eingebaut werden und Logs um eine Übersicht zu haben welche VM's wann erstellt wurden und ob Probleme aufgetreten sind. 
 
 ---
 von Robin Bobst
