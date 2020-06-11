@@ -226,4 +226,6 @@ Ich habe viel über Git gelernt und mich mit dem Thema ausanander gesetzt. Mit V
 
 Ich habe am Anfang nicht verstanden wie man mit Vagrant einen automatisierten Webserver ausetzt, doch mit dem Projekt habe ich dies Verstanden. Auch habe ich gelernt wie man mit Git umgeht und wie man dies am besten einsetzten kann. 
 
+---
+
 von Robin Bobst
