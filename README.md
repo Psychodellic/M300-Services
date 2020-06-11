@@ -173,7 +173,8 @@ vagrant up
   
 * Die vier VM's laufen und die Dienste sind installiert.
 
-![Container](Container.png)
+![Container](https://ibb.co/tKnXF0w)
+
 
 * Die index.hmtl Seite die erzeugt wurde ist aufrufbar. 
 
