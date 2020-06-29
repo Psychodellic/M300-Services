@@ -1,6 +1,9 @@
 # M300-Services
 
 * Erklärung vom Code
+  * docker.sh
+  * dockerstart.sh
+  * dockerstop.sh
 * Shell Script starten
 * Shell Script anpassen
 * Sicherheit
@@ -14,99 +17,113 @@
 
 ## Erklärung vom Code
 
-Das Script erstellen automatisiert 2x WebVM's mit apache Webserver und 2x DBVM's mit installierten mysql-Datenbank.
+### docker.sh
 
-Das Shell-Script wird mit zwei for Schleifen gelöst welche die VM's erstellt. 
+Das Script erstellt einen Docker-Umgebung auf der eine Mysql Datenbank läuft.
+
+Danach wird ein zweite Docker-Umgebung aufgebaut, auf der OSTicket läuft.
+
+Beide Umgebungen werden nach der Erstellung gestartet
+
 
 ```
 #!/bin/bash
 ```
 
-* Mit dem Befehl `#!/bin/bash` wird dem System gesagt das die Umgebung mit der Bash aufegbaut werden soll. Das System weiss das es für dieses Shellscript die Bash verwenden muss.  
+* Mit dem Befehl `#!/bin/bash` wird dem System gesagt das die Umgebung mit der Bash aufegbaut werden soll. Das System weiss das es für dieses Shellscript die Bash verwenden muss. 
 
 ```
-Vagrant.configure(2) do |config|
-          config.vm.box = "ubuntu/xenial64"
+docker run --name osticket_mysql -d -e MYSQL_ROOT_PASSWORD=secret -e MYSQL_USER=osticket -e MYSQL_PASSWORD=secret -e MYSQL_DATABASE=osticket mysql:5
 ```
 
-* Mit dem `config.vm.box` wird aus der Vagrant Cloud eine bestimmte Box heruntergeladen
+* Mit dieser Zeile wird ein Docker-Container erstellt mit dem Namen `osticket_mysql`. Dieser Docker-Container der erzeugt wird hat schon MySQL instaliert. Angaben wie Datenbank Passwort, MySQL User sowie Datenbank name werden angegeben.  
 
 ```
-config.vm.network "forwarded_port", guest:80, host:8080, auto_correct: true
-```
-* Mit `config.vm.network` werden die Netzwerk Einstellungen der VM gemacht. In diesem beispiel wird der Port 80 auf den port 8080 weitergeleitet 
-
-```
-config.vm.synced_folder ".", "/var/www/html"
+echo "MySQL VM erstellt"
 ```
 
-* Der Ordner `/var/www/html` wird mit dem vagrant-VM Verzeichnis synchronisiert und es können änderungenam HTML File vorgenommen werden. 
+* Dem User wird mitgeteilt das die MySQL aufgebaut wurde.
 
 ```
-config.vm.provider "virtualbox" do |vb|
-          vb.memory = "256"  
+docker run --name osticket -d --link osticket_mysql:mysql -p 8080:80 campbellsoftwaresolutions/osticket
 ```
 
-* Hier wird angegeben wie viel RAM die einzelne VM erhält
-
-```
-config.vm.provision "shell", inline: <<-SHELL 
-          sudo apt-get update
-          sudo apt-get -y install apache2
-          sudo apt-get -y install ufw
-          sudo ufw enable
-          sudo ufw allow 80/tcp
-        SHELL
-        end
-```
-
-* In diesem Abschnitt wird in der Shell des Betriebsystems Befehle abgesetzt. So können Pakete installiert und Konfiguarionen vorgenommen werden.
-  
-  Hier wird `apache` & `ufw Firewall` installiert
-  Die `ufw Firewall ` wird aktiviert und der Port 80 wird geöffnet.
-
-```
-# index.html 
-    cat <<%EOF% >index.html
-    <html>
-        <body>
-            <h1>LB2 von Robin Bobst für ${vm}</h1>
-        </body>
-    <html>
-```
-
-* In diesem Abschnitt wird das index.html angepasst und erstellt. Dieses index.html kann beliebig ausgeschmückt werden.
-
-```
-vagrant up
-    cd ..
-```
-
-* Die VM wir mit `vagrant up` gestartet und das Verzeichnis wird nach dem start verlassen
-
-```
-config.vm.provision "shell", inline: <<-SHELL 
-          sudo apt-get update
-          sudo apt-get -y install mysql-server
-          sudo useradd -m mysql
-          sudo apt-get -y install ufw
-          sudo ufw enable
-          sudo ufw allow from 0.0.0.0/0 to any port 3306
-        SHELL
-        end
-```
-* Hier wird für die Datenbank-VM's die Datenbank (`mysql-server`) installiert und ein User mit dem Namen `mysql` erstellt.
-  Ebenfalls wird die `ufw Firewall` installiert und der Port `3306` wird für alle Netzwerke geöffent, dass jedes Netzwerk auf die Datenbank zugreifen und verwalten kann. 
-  Die kann bei Sycherheitsrelevanten Datenbanken eingegrenzt werden.
-
-```
-vagrant up
-    cd ..   
-```
-* die VM's werden gestartet und das Verzeichnis wird verlassen um die nächte VM aufzubauen. 
-
+* Ladet den OSTicket Docker-Container von `campbellsoftwaresolutions` herunter und erstellt diesen Conatiner mit dem Namen `osticket`. Der Port 8080 wird auf den internen Port 80 umgeleitet. Es wird eine Verknüpfung der MySQL Datenbank mit der Docker-Umgebung `osticket_mysql` gemacht. Die `osticket` Umgebung benutzt die MySQL Datenbank der `osticket_mysql` Umgebung. 
 
 ---
+
+### dockerstart.sh
+
+Mit diesem Script können die beiden Erstellten Dockerumgebungen gestartet werden, falls diese mal gestoppt sind.
+
+```
+#!/bin/bash
+```
+
+* Mit dem Befehl `#!/bin/bash` wird dem System gesagt das die Umgebung mit der Bash aufegbaut werden soll. Das System weiss das es für dieses Shellscript die Bash verwenden muss. 
+
+```
+docker start osticket_mysql
+```
+
+* startet den Docker-Container mit dem Namen `osticket_mysql`.
+
+```
+echo "Mysql VM gestartet"
+```
+
+* Dem User wird mitgeteilt das der Docker-Container `osticket_mysql` gestartet wurde.
+
+```
+docker start osticket
+```
+
+* startet den Docker-Conatiner mit dem Namen `osticket`.
+
+```
+echo "OSticket VM gestartet"
+```
+
+* Dem User wird mitgeteilt das der Docker-Container `osticket` gestartet wurde.
+
+---
+
+### dockerstop.sh
+
+Mit diesem Script können die beiden Dockerumgebungen gestoppt werden. 
+
+```
+#!/bin/bash
+```
+
+* Mit dem Befehl `#!/bin/bash` wird dem System gesagt das die Umgebung mit der Bash aufegbaut werden soll. Das System weiss das es für dieses Shellscript die Bash verwenden muss.
+
+```
+docker stop osticket_mysql
+```
+
+* stoppt den Docker-Container mit dem Namen `osticket_mysql`.
+
+```
+echo "MySQL VM gestoppt"
+```
+
+* Dem User wird mitgeteilt das der Docker-Container `osticket_mysql` gestoppt wurde.
+
+```
+docker stop osticket
+```
+
+* stoppt den Docker-Container mit dem Namen `osticket`.
+
+```
+echo "OSTicket VM gestoppt"
+```
+
+* Dem User wird mitgeteilt das der Docker-Container `osticket` gestoppt wurde.
+
+---
+
 
 ## Shell Script starten
 
@@ -116,11 +133,11 @@ vagrant up
   
   * Im Verzeichnis in dem sich das Script befindet.
      ```
-     ./mm.sh
+     ./docker.sh
      ```
   * Absolute Pfad
     ```
-    /e/M300/vagrant/mm.sh
+    /data/docker/docker.sh
     ```  
 
   * Pfadvariable
@@ -143,17 +160,6 @@ vagrant up
 
 ## Sicherheit
 
-* Die Firewall hat die Ports 80 und 3306 geöffnet.
-	
-  * Port 80:
-	
-    * Wird für die Webserver benötigt.
-	
-
-  * Port 3306:
-	
-      * Wird für die DB-Server benötigt, und ist offen für alle.
-		Eigentlich ist das überhaupt nicht gut, dass es offen für alle ist, aber da unsere VMs die IP vom DHCP beziehen, ist uns unklar welches Netz wir freigeben müssen.
 
 
 [1]: https://de.wikipedia.org/wiki/H%C3%A4rten_(Computer) "härten"
@@ -179,28 +185,10 @@ vagrant up
 
 * Die VM's wurden gestartet und die Dienste laufen?
 
-* Wurde die index.html Seite erzeugt und ist dieses Aufrufbar? 
+* Die OSTicket Seite ins verfügbar und das Tool kann verwendet werden? 
 
 ### Testergebnisse
 
-
-* Im Verzeichnis in dem das Shellscript gestartet wurde sollte nach erfolgreichen durchlaufen des Scripts vier Ordner mit den Namen `web01`, `web02`, `db01` & `db02` erstellt worden sein.
-  
-![Ordner](ordner.png)
-
-https://ibb.co/dkSSpbH
-  
-* Die vier VM's laufen und die Dienste sind installiert.
-
-![Container](Container.png)
-
-https://ibb.co/tKnXF0w
-
-* Die index.hmtl Seite die erzeugt wurde ist aufrufbar. 
-
-![index.html](index.png)
-
-https://ibb.co/fNV6xdf
 
 ---
 
