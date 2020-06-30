@@ -9,7 +9,10 @@
 * Sicherheit
 * Testing
   * Testfälle
-  * Testergebnisse 
+  * Testergebnisse
+* Extras
+  * WebGUI für Docker
+  * Minecraft DockerGUI
 * Fazit
 * Reflexion
 * Wissensgewinn
@@ -181,7 +184,7 @@ echo "OSTicket VM gestoppt"
 
 ### Testfälle
 
-* Die Ordner der Container wurden erzeugt mit den richtigen Namen?
+* Die Container wurden erzeugt mit den richtigen Namen?
 
 * Die VM's wurden gestartet und die Dienste laufen?
 
@@ -189,30 +192,60 @@ echo "OSTicket VM gestoppt"
 
 ### Testergebnisse
 
+* mit dem Befehl `docker ps` können alle laufenden Docker Container angezeigt werden. 
+  * b3013259433f        campbellsoftwaresolutions/osticket   "docker-php-entrypoi…"   5 days ago          Up About a minute   9000/tcp, 0.0.0.0:8                           080->80/tcp   osticket
+  
+  * bd222b9b4092        mysql:5                              "docker-entrypoint.s…"   5 days ago          Up 2 minutes        3306/tcp, 33060/tcp
 
+* beide Container sind erfolgrecih erstellt worden und laufen. 
+
+* Mit der Adresse des Servers `192.168.122.13:8080/scp/` wird die Login Seite von OSTicket angezeigt. 
 ---
+
+
+## Extras
+
+### WebGUI für Docker
+
+* Es ist möglich ein Docker-Container herunterzuladen der ein WebGUI für die Administration von Docker-Container erzeugt. 
+
+```
+docker run -d -p 9000:9000 --privileged -v /var/run/docker.sock:/var/run/docker.sock uifd/ui-for-docker
+```
+
+* das WebGUI das von diesem Conatiner erzeugt wird kann mit der Server Adresse auf einem Browser angeschauit werden. `http://192.168.122.13:9000/` Der Port kann vor der installation nach Wunsch geändert werden.  
+
+
+### Minecraft DockerGUI
+
+* Mit Dockercraft kann die Docker-Umgebung mit Minecraft Visualisiert werden und auch gesteuert werden. Dockercraft erzeugt einen Java Minecraft Server der mit der Dockerumgebung verbunden ist. 
+
+* Dies ist zwar für die meisten unütz zeigt aber was mit Docker und Container alles möglich ist und das auf jeder Umgebung. Es ist nicht Hardware abhängig. Die Container laufen bei jedem User der Docker installiert hat. 
+---
+
 
 ## Fazit
 
-* Mit einem Shellscript können sehr schnell und einfach mehrere VM's erstellt werden. 
+* Mit Docker können wie mit Vagrant schnell Umgebungen Aufegabut werden. Diese Umgebung können selbst oder von anderen erstellt worden sein. 
 
-* Es ist ganz leicht das Script für weitere Zwecke auszubauen und zu erweitern.
+* Mit Docker sind die möglichekiten fast schon grenzenlos.
 
-* Bei installationen bei dem Abfragen an den User gestellt werden kann es zu Problemen und Schwierigkeiten kommen.
+* Bei Docker-Container die von anderen erstellt wurden kann es zu Problemen kommne um etwas im Imnage zu verstehen oder zu ändern.
 
-* Für grössere Projekte sollten noch Fehlerbehandlung eingebaut werden und Logs um eine Übersicht zu haben welche VM's wann erstellt wurden und ob Probleme aufgetreten sind. 
+* Mit Container können Umgebung in Sekunden schnelle auf jedem System repliziert werden und jeder kann dies Nutzen der auch Docker besitzt. Dies ist auch bei Forschungen sehr nützlich, da so jemand von China die Umgebung von einem Schweizer Forschungsteam in sekunden schnelle 1zu1 replizieren kann. 
+ 
 
 ---
 
 ## Relflexion
 
-Ich habe viel über Git gelernt und mich mit dem Thema ausanander gesetzt. Mit Visual Studio Code habe ich das ganze Prozedere schon ziemlich gut im Griff um Sachen zu pushen und stagen. Ich finde Git macht in vielen Anwendungsbereichen viel sinn und werde versuchen dies in Zukunft mehr zu gebrauchen und es auch im Geschäft zu Pushen. Das Projekt mit der Vagrantbox hat mir auch viel gelernt. Nicht alles hat auf anhieb geklappt. Bei Rückfragen des OS hat sich das Script aufgehangen und konnte nicht ausgeführt werden. 
+Ich habe viel über Git gelernt und mich mit dem Thema ausanander gesetzt. Mit Visual Studio Code habe ich das ganze Prozedere schon ziemlich gut im Griff um Sachen zu pushen und stagen. Ich finde Git macht in vielen Anwendungsbereichen viel sinn und werde versuchen dies in Zukunft mehr zu gebrauchen und es auch im Geschäft zu Pushen. Das Projekt mit der Vagrantbox hat mir auch viel gelernt. Docker ist sehr änhlich wie vagrant, die Befehle und der Aufabue der Docker und Vagrantfiles sind anderst. Durch den eher knappen Zeitraum haben wir nicht einene Riesen Umgebung aufbauen können. Der sinn von Docker ist auch das nicht jeder Informatiker eine Umgebung selber aufbauen muss, sondern das man auf der ganzen Welt vom Wissen von anderen Profitiert und diese Umgebungen selber nutzen kann und dies haben wir gemacht. Wir haben uns versucht so schnell eine OSTicket Umgeung aufzubaune, welche auchs ehr gut funktioniert hat. Zuerst hatten wir schwierigkeiten die Umgebung zum laufen zu bringen, da Docker auf Windows nicht so gut funktioniert. Auch die Umstellung von Vagrant auf Docker hat seine Zeit gebraucht. Die Tutorials über Docker die im Github angelegt sind haben mir aber sehr geholfen dies zu verstehen. Mit der TBZ Linux umgebung hat alles sehr gut funktioniert und ich kann dies nur empfehlen.
 
 ---
 
 ## Wissensgewinn
 
-Ich habe am Anfang nicht verstanden wie man mit Vagrant einen automatisierten Webserver ausetzt, doch mit dem Projekt habe ich dies Verstanden. Auch habe ich gelernt wie man mit Git umgeht und wie man dies am besten einsetzten kann. 
+Docker sowie Vagrant Umgebungen aufzubauen und diese selbst anpassen. Ich habe viel über Container gelernt und selbst gesehen welche Vorteile dies gegen den normalen VM hat. Ich nehme aus diesem Modul viel mit in meine Zukunft und versuchte das gelernte die angeschnittenen Themen in der Praxis und im Arbeitsleben einzufliessen und anzuwenden. 
 
 ---
 
