@@ -177,6 +177,12 @@ echo "OSTicket VM gestoppt"
 
 * Mit SSH (Secure Shell) wird eine Verschlüsselte Verbindung zu einem entferneten Rechner oder System aufgebaut. Mit dieser verschlüsselten Verbindung kann auf die Commandline zugegriffen werden und Sicher auf anderen Systemen gearbeiet werden. 
 
+### OSTicket
+
+* Dadurch das die Mysql Datenbank nur von der OSTicket VM zugegriffen werden kann ist diese geschützt. Für die OSTicket umgebung wurde der Port `8080` geöffent der intern in der Vm auf den Port `80` zeigt.
+
+
+
 
 ---
 
